@@ -31,3 +31,15 @@ address {
 .navbar-dark {
   background-color: #512da8;
 }
+
+.modal-backdrop {
+  opacity: 0.5;
+}
+
+.modal.fade.in {
+  opacity: 1;
+}
+
+.modal.fade.in .modal-dialog {
+  transform: translate(0, 0);
+}
