@@ -1,12 +1,6 @@
-import { React, Component } from "react";
+import React, { Component } from "react";
+
 import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  Breadcrumb,
-  BreadcrumbItem,
   Button,
   Modal,
   ModalBody,
@@ -15,10 +9,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import { Link } from "react-router-dom";
-import { Control, LocalForm, Errors } from "react-redux-form";
 
-// ---------- Comment Form Component ----------
+import { Control, LocalForm, Errors } from "react-redux-form";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -35,13 +27,7 @@ class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-    this.toggleModal = this.toggleModal.bind(this);
-    this.props.addComment(
-      this.props.dishId,
-      values.rating,
-      values.author,
-      values.comment
-    );
+    alert("Current state is: " + JSON.stringify(values));
   }
 
   toggleModal() {
@@ -50,7 +36,7 @@ class CommentForm extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Button outline onClick={this.toggleModal}>
           <span className="fa fa-comments fa-lg"></span> Submit Comment
         </Button>
@@ -90,12 +76,12 @@ class CommentForm extends Component {
                     }}
                   />
                 </Col>
-                <Label htmlfor="author">Your name</Label>
+                <Label htmlfor="name">Your name</Label>
                 <Col md={12}>
                   <Control.text
-                    model=".author"
-                    name="author"
-                    id="author"
+                    model=".name"
+                    name="name"
+                    id="name"
                     placeholder="Your name"
                     className="form-control"
                     validators={{
@@ -106,7 +92,7 @@ class CommentForm extends Component {
                   />
                   <Errors
                     className="text-danger"
-                    model=".author"
+                    model=".name"
                     show="touched"
                     messages={{
                       required: "Required",
@@ -138,101 +124,9 @@ class CommentForm extends Component {
             </LocalForm>
           </ModalBody>
         </Modal>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-// ---------- Comment Form Component ----------
-
-function RenderDish(dish) {
-  return (
-    <Card>
-      <CardImg top src={dish.image} alt={dish.name} />
-      <CardBody>
-        <CardTitle>{dish.name}</CardTitle>
-        <CardText>{dish.description}</CardText>
-      </CardBody>
-    </Card>
-  );
-}
-
-function RenderComments({ comments, addComment, dishId }) {
-  if (comments === null) {
-    return;
-  }
-
-  const ListOfComments = comments.map((comment) => {
-    return (
-      <ul class="list-unstyled">
-        <li>{comment.comment}</li>
-        <li>
-          -- {comment.author},{" "}
-          {new Intl.DateTimeFormat("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "2-digit",
-          }).format(new Date(Date.parse(comment.date)))}
-        </li>
-      </ul>
-    );
-  });
-
-  return (
-    <div>
-      {ListOfComments}
-      <CommentForm dishId={dishId} addComment={addComment} />
-    </div>
-  );
-}
-
-const DishDetail = (props) => {
-  if (props.dish) {
-    return (
-      <div className="container">
-        <div className="row">
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <Link to="/menu">Menu</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-          </Breadcrumb>
-          <div className="col-12">
-            <h3>{props.dish.name}</h3>
-            <hr />
-          </div>
-        </div>
-        <div key={props.dish.id} className="row">
-          <div className="col-12 col-md-5 m-1">{RenderDish(props.dish)}</div>
-          <div className="col-12 col-md-5 m-1">
-            <h4>Comments</h4>
-            <RenderComments
-              comments={props.comments}
-              addComment={props.addComment}
-              dishId={props.dish.id}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="container">
-        <div className="row">
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <Link to="/menu">Menu</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-          </Breadcrumb>
-          <div className="col-12">
-            <h3>{props.dish.name}</h3>
-            <hr />
-          </div>
-        </div>
-      </div>
-    );
-  }
-};
-
-export default DishDetail;
+export default CommentForm;
