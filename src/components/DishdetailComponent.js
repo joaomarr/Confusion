@@ -19,6 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
 
 // ---------- Comment Form Component ----------
 
@@ -150,7 +151,7 @@ class CommentForm extends Component {
 function RenderDish(dish) {
   return (
     <Card>
-      <CardImg top src={dish.image} alt={dish.name} />
+      <CardImg top src={baseUrl + dish.image} alt={dish.name} />
       <CardBody>
         <CardTitle>{dish.name}</CardTitle>
         <CardText>{dish.description}</CardText>
@@ -167,8 +168,8 @@ function RenderComments({ comments, addComment, dishId }) {
   const ListOfComments = comments.map((comment) => {
     return (
       <ul class="list-unstyled">
-        <li>{comment.comment}</li>
-        <li>
+        <li key={comment.id}>{comment.comment}</li>
+        <li key={comment.date}>
           -- {comment.author},{" "}
           {new Intl.DateTimeFormat("en-US", {
             year: "numeric",
