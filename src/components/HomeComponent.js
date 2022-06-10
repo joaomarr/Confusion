@@ -12,7 +12,6 @@ import { baseUrl } from "../shared/baseUrl";
 import { FadeTransform } from "react-animation-components";
 
 function RenderCard({ item, isLoading, errMess }) {
-  console.log(item, isLoading, errMess);
   if (isLoading) {
     return <Loading />;
   } else if (errMess) {

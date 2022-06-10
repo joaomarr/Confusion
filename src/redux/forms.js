@@ -1,5 +1,5 @@
 export const InitialFeedback = {
-  firstName: "",
+  firstname: "",
   lastname: "",
   telnum: "",
   agree: false,

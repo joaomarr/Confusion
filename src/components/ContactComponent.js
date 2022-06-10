@@ -24,9 +24,25 @@ class Contact extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(values) {
-    alert("Current State is: " + JSON.stringify(values));
+  handleSubmit({
+    firstname,
+    lastname,
+    telnum,
+    email,
+    agree,
+    contactType,
+    message,
+  }) {
     this.props.resetFeedbackForm();
+    this.props.postFeedback(
+      firstname,
+      lastname,
+      telnum,
+      email,
+      agree,
+      contactType,
+      message
+    );
   }
 
   render() {
